@@ -1,0 +1,30 @@
+{% extends "commerce/layout.html" %}
+
+{% block title %}Wishlist{% endblock %}
+
+{% block body %}
+<h1 class="text-center mb-2">{{ request.user }}'s Wishlist</h1>
+
+{% for wish in wishlist %}
+
+    <div class="row justify-content-center">
+        <div class="col-lg-6">
+
+            <div class="card text-center mb-3">
+                <div class="card-header">
+                    {{ wish.listing.user }}
+                </div>
+                <div class="card-body">
+                  <h5 class="card-title">{{ wish.listing.name }}</h5>
+                  <p class="card-text"></p>
+                  <a href="{% url 'listing' wish.listing.id %}" class="btn btn-primary">Open Listing</a>
+                </div>
+                <div class="card-footer text-muted">
+                    {{ wish.listing.price }}
+                </div>
+            </div>
+            
+        </div>
+    </div>
+{% endfor %}
+{% endblock %}

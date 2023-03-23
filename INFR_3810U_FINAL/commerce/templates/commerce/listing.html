@@ -1,0 +1,48 @@
+{% extends "commerce/layout.html" %}
+
+{% block title %}Listing{% endblock %}
+
+{% block body %}
+<h1 class="text-center mb-2">{{ listing.name }}</h1>
+
+    <div class="row justify-content-center">
+        <div class="col-lg-6">
+            <h4 class="text-center mb-2" style="color: grey">${{ listing.price }}</h4>
+        </div>
+    </div>
+    <div class="row justify-content-center mb-3">
+        <div class="col-lg-6 text-center">
+            <a href="{% url 'index' %}" class="btn btn-secondary">Back</a>
+            <a href="{% url 'order' listing.id %}" class="btn {% if order %}btn-outline-success disabled{% else %}btn-success{% endif %}">{% if order %}Purchased{% else %}Buy{% endif %}</a>
+            <a href="{% url 'review' listing.id %}" class="btn btn-danger">Review</a>
+            <a href="{% url 'wishlist' listing.id %}" class="btn btn-warning">{% if wishlist %}Remove from{% else %}Add to{% endif %} Wishlist</a>
+        </div>
+    </div>
+    <hr>
+    <div class="row justify-content-center">
+        <div class="col-lg-6 text-center">
+            <h5 style="color: grey;">Reviews</h5>
+            {% for review in reviews %}
+                <div class="card mb-3">
+                    <div class="card-header">
+                        {{ review.user }}
+                    </div>
+                    <div class="card-body">
+                      <p class="card-text">{{ review.review }}</p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-lg-6 text-center">
+            <form action="{% url 'review' listing.id %}" method="POST">
+                {% csrf_token %}
+                {{ review_form.as_p }}
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
+
+{% endblock %}

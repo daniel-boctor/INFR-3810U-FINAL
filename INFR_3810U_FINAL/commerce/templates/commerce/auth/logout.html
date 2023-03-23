@@ -1,0 +1,27 @@
+{% extends "commerce/layout.html" %}
+
+{% block title %}Logout{% endblock %}
+
+{% block body %}
+
+<div class="row justify-content-center">
+    <div class="col-lg-6 mb-2">
+
+        <div class="card">
+            <h2 class="card-header text-center">Logout</h2>
+            <div class="card-body">
+                Thanks for stopping by!
+                <br>
+                You have been logged out.
+            </div>
+            <div class="card-footer text-muted">
+                <small><a href="{% url 'index' %}">Return to Homepage</a></small>
+                |
+                <small><a href="{% url 'login' %}">Log In Again</a></small>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

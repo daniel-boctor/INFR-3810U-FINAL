@@ -1,0 +1,19 @@
+{% extends "commerce/layout.html" %}
+
+{% block title %}My Listings{% endblock %}
+
+{% block body %}
+    <h1 class="text-center">My Listings</h1>
+
+    <div class="row justify-content-center">
+        <div class="col-lg-6">
+
+            <form action="{% url 'my_listings' %}" method="POST">
+                {% csrf_token %}
+                {{ formset.as_p}}
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+
+        </div>
+    </div>
+{% endblock %}
