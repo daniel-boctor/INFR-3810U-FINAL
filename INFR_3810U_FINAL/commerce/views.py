@@ -17,7 +17,6 @@ def my_listings(request):
     ListingFormSet = modelformset_factory(Listing, form=ListingForm, extra=1, max_num=10, absolute_max=10, can_delete=True)
     if request.method ==  "GET":
         listingformset = ListingFormSet(queryset=Listing.objects.filter(user=request.user))
-        return render(request, "commerce/my_listings.html", {"formset": listingformset})
     else:
         listingformset = ListingFormSet(request.POST, queryset=Listing.objects.filter(user=request.user))
         if listingformset.is_valid():
@@ -30,15 +29,15 @@ def my_listings(request):
                 instance.save()
                 messages.success(request, f"{instance.name} was successfully saved.", extra_tags="Success!")
             return HttpResponseRedirect(reverse("my_listings"))
-
-@login_required        
+    return render(request, "commerce/my_listings.html", {"formset": listingformset})
+     
 def listing(request, pk):
     return render(request, "commerce/listing.html", {
         "listing": Listing.objects.get(pk=pk),
-        "order": Order.objects.filter(user=request.user, listing=pk).exists(),
-        "wishlist": Wishlist.objects.filter(user=request.user, listing=pk).exists(),
+        "order": Order.objects.filter(user=request.user, listing=pk).exists() if request.user.is_authenticated else None,
+        "wishlist": Wishlist.objects.filter(user=request.user, listing=pk).exists() if request.user.is_authenticated else None,
         "reviews": Review.objects.filter(listing=pk),
-        "review_form": ReviewForm()
+        "review_form": ReviewForm(instance=Review.objects.get(user=request.user, listing=pk)) if Review.objects.filter(user=request.user, listing=pk).exists() else ReviewForm()
         })
 
 @login_required
@@ -70,6 +69,12 @@ def review(request, pk=None):
             instance.user = request.user
             instance.listing = Listing.objects.get(pk=pk)
             instance.save()
+        else:
+            for error in form.non_field_errors():
+                messages.error(request, f"{error}", extra_tags="Error")
+            for field in form:
+                for error in field.errors:
+                    messages.error(request, f"{error}", extra_tags=f"{field.label}")
         return HttpResponseRedirect(reverse("listing", args=[pk]))
 
 @login_required

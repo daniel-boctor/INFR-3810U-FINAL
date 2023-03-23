@@ -1,13 +1,41 @@
+{% load static %}
+
 <!DOCTYPE html>
     <html lang="en">
     <head>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>{% block title %}{% endblock %}</title>
-        {% block script %}{% endblock %} 
+        {% block script %}{% endblock %}
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+
+            if (window.location.pathname != "/") {
+                document.querySelectorAll('.nav-link').forEach(function(nav_link) {
+                    if (window.location.pathname.includes(nav_link.getAttribute("href"))) {
+                        nav_link.className += " active";
+                        nav_link.setAttribute("aria-current", "page");
+                        nav_link.style.textDecoration = "underline"; 
+                    }
+                });
+            }
+
+            });
+
+            $(document).ready(function() {
+                $('[data-bs-toggle="popover"]').popover({html:true});
+                $('.toast').toast('show');
+            });
+        </script>
+        <style>
+            .errorlist {
+                color: red;
+            }
+        </style>
     </head>
     <body>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light mb-2">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-success sticky-top mb-2">
             <div class="container-fluid">
                 <a class="navbar-brand" href="{% url 'index' %}">Home</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
