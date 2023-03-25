@@ -15,12 +15,16 @@
                     {{ order.listing.user }}
                 </div>
                 <div class="card-body">
+                    {% if order.listing.image %}<img style="padding-bottom: 5px; max-width: 25%;" src="{{ order.listing.image }}">{% endif %}
                   <h5 class="card-title">{{ order.listing.name }}</h5>
                   <p class="card-text"></p>
                   <a href="{% url 'listing' order.listing.id %}" class="btn btn-primary">View Order</a>
                 </div>
                 <div class="card-footer text-muted">
-                    {{ order.listing.price }}
+                    {{ order.listing.price }}<br>
+                    {{ request.user.address }}
+                    {{ request.user.postal_code }}
+                    {{ request.user.country }}
                 </div>
             </div>
             

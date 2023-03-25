@@ -17,11 +17,14 @@ class MyUserCreationForm(UserCreationForm):
 class UserUpdateForm(forms.ModelForm):
     class Meta:
         model = User
-        fields = ('username', 'email')
+        fields = ('username', 'email', 'address', 'postal_code', 'country')
     def __init__(self, *args, **kwargs):
         super(UserUpdateForm, self).__init__(*args, **kwargs)
         self.fields['username'].widget.attrs = {'class': 'form-control', 'placeholder':'Username'}
         self.fields['email'].widget.attrs = {'class': 'form-control', 'placeholder':'Email'}
+        self.fields['address'].widget.attrs = {'class': 'form-control', 'placeholder':'Address'}
+        self.fields['postal_code'].widget.attrs = {'class': 'form-control', 'placeholder':'XXXXXX'}
+        self.fields['country'].widget.attrs = {'class': 'form-control', 'placeholder':'Country'}
         self.fields['username'].help_text = None
 
 class ListingForm(forms.ModelForm):
@@ -30,7 +33,8 @@ class ListingForm(forms.ModelForm):
         exclude = ('user',)
         widgets = {
             'name': forms.TextInput(attrs={'class':'form-control', 'placeholder':'Name'}),
-            'price': forms.TextInput(attrs={'class':'form-control', 'placeholder':'$100'})
+            'price': forms.TextInput(attrs={'class':'form-control', 'placeholder':'$100'}),
+            'image': forms.TextInput(attrs={'class':'form-control', 'placeholder':'URL to image'})
         }
 
 class ReviewForm(forms.ModelForm):

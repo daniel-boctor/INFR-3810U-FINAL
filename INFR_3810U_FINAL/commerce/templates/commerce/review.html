@@ -15,8 +15,9 @@
                     {{ review.listing.user }}
                 </div>
                 <div class="card-body">
+                    {% if review.listing.image %}<img style="padding-bottom: 5px; max-width: 25%;" src="{{ review.listing.image }}">{% endif %}
                   <h5 class="card-title">{{ review.listing.name }}</h5>
-                  <p class="card-text">{{ review.review }}</p>
+                  <p class="card-text">{% if review.recommend %}<strong class="text-success">Recommended</strong>{% else %}<strong class="text-danger">Not recommended</strong>{% endif %}: {{ review.review }}</p>
                   <a href="{% url 'listing' review.listing.id %}" class="btn btn-primary">Open Listing</a>
                 </div>
             </div>

@@ -47,12 +47,15 @@ def order(request, pk=None):
     if Order.objects.filter(user=request.user, listing=pk).exists():
         pass
     else:
-        listing = Listing.objects.get(pk=pk)
-        wish = Order (
-            user = request.user,
-            listing = listing
-        )
-        wish.save()
+        if not request.user.address or not request.user.postal_code or not request.user.country:
+            messages.error(request, f"Incomplete Address information. head to the account settings for {request.user} and complete all addressing information.", extra_tags="Error")
+        else:
+            listing = Listing.objects.get(pk=pk)
+            order = Order (
+                user = request.user,
+                listing = listing
+            )
+            order.save()
     return HttpResponseRedirect(reverse("listing", args=[pk]))
 
 @login_required
