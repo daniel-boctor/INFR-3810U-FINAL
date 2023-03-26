@@ -21,7 +21,7 @@
                   <a href="{% url 'listing' order.listing.id %}" class="btn btn-primary">View Order</a>
                 </div>
                 <div class="card-footer text-muted">
-                    {{ order.listing.price }}<br>
+                    ${{ order.listing.price }}<br>
                     {{ request.user.address }}
                     {{ request.user.postal_code }}
                     {{ request.user.country }}

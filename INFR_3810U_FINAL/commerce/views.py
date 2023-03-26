@@ -37,7 +37,7 @@ def listing(request, pk):
         "order": Order.objects.filter(user=request.user, listing=pk).exists() if request.user.is_authenticated else None,
         "wishlist": Wishlist.objects.filter(user=request.user, listing=pk).exists() if request.user.is_authenticated else None,
         "reviews": Review.objects.filter(listing=pk),
-        "review_form": ReviewForm(instance=Review.objects.get(user=request.user, listing=pk)) if Review.objects.filter(user=request.user, listing=pk).exists() else ReviewForm()
+        "review_form": (ReviewForm(instance=Review.objects.get(user=request.user, listing=pk)) if Review.objects.filter(user=request.user, listing=pk).exists() else ReviewForm()) if request.user.is_authenticated else None,
         })
 
 @login_required
