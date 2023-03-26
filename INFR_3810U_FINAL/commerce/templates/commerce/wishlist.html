@@ -15,7 +15,7 @@
                     {{ wish.listing.user }}
                 </div>
                 <div class="card-body">
-                    {% if wish.listing.image %}<img style="padding-bottom: 5px; max-width: 25%;" src="{{ wish.listing.image }}">{% endif %}
+                    {% if wish.listing.image %}<img style="padding-bottom: 5px; height: 150px;" src="{{ wish.listing.image }}">{% endif %}
                   <h5 class="card-title">{{ wish.listing.name }}</h5>
                   <p class="card-text"></p>
                   <a href="{% url 'listing' wish.listing.id %}" class="btn btn-primary">Open Listing</a>

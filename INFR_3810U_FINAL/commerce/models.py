@@ -6,13 +6,14 @@ from django.core.validators import MinValueValidator
 
 class User(AbstractUser):
     address = models.CharField(max_length=32)
-    postal_code = models.CharField(max_length=6)
+    postal_code = models.CharField(max_length=7)
     country = models.CharField(max_length=16)
 
 class Listing(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=32)
     price = models.DecimalField(decimal_places=2, max_digits=6, validators=[MinValueValidator(0.01)])
+    description = models.CharField(max_length=128)
     image = models.URLField(null=True, blank=True)
 
 class Order(models.Model):
@@ -22,7 +23,7 @@ class Order(models.Model):
 class Review(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     listing = models.ForeignKey(Listing, on_delete=models.CASCADE)
-    review = models.CharField(max_length=32)
+    review = models.CharField(max_length=64)
     recommend = models.BooleanField(default=False)
 
 class Wishlist(models.Model):

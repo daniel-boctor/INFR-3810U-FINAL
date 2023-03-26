@@ -11,7 +11,7 @@
             <form action="{% url 'my_listings' %}" method="POST">
                 {% csrf_token %}
                 {{ formset.as_p}}
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-primary" onclick="$('.form-control').each(function() {var value = $(this).val();if (value.charAt(0) === '$') {$(this).val(value.substring(1));}})">Submit</button>
             </form>
 
         </div>

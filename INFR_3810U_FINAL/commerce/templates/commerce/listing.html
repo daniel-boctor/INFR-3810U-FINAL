@@ -13,7 +13,13 @@
 
     <div class="row justify-content-center">
         <div class="col-lg-6 text-center">
-            {% if listing.image %}<img style="padding: 15px; max-width: 50%;" src="{{ listing.image }}">{% endif %}
+            {% if listing.image %}<img style="padding: 15px; height: 250px;" src="{{ listing.image }}">{% endif %}
+        </div>
+    </div>
+
+    <div class="row justify-content-center mb-3">
+        <div class="col-lg-6 text-center">
+            {{ listing.description }}
         </div>
     </div>
 
@@ -34,12 +40,15 @@
         <div class="col-lg-6 text-center">
             <h5 style="color: grey;">Reviews</h5>
             {% for review in reviews %}
-                <div class="card mb-3">
+                <div class="card {% if review.recommend %}border-success{% else %}border-danger{% endif %} mb-3">
                     <div class="card-header">
                         {{ review.user }}
                     </div>
                     <div class="card-body">
                       <p class="card-text">{{ review.review }}</p>
+                    </div>
+                    <div class="card-footer">
+                        {% if review.recommend %}<strong class="text-success">Recommended</strong>{% else %}<strong class="text-danger">Not recommended</strong>{% endif %}
                     </div>
                 </div>
             {% endfor %}

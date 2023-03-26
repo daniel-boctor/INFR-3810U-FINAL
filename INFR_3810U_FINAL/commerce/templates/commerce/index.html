@@ -14,7 +14,7 @@
                         {{ listing.user }}
                     </div>
                     <div class="card-body">
-                        {% if listing.image %}<img style="padding-bottom: 5px; max-width: 25%;" src="{{ listing.image }}">{% endif %}
+                        {% if listing.image %}<img style="padding-bottom: 5px; height: 150px;" src="{{ listing.image }}">{% endif %}
                     <h5 class="card-title">{{ listing.name }}</h5>
                     <p class="card-text"></p>
                     <a href="{% url 'listing' listing.id %}" class="btn btn-primary">Open Listing</a>

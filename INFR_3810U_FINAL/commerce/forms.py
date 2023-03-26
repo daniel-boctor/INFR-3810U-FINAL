@@ -34,6 +34,7 @@ class ListingForm(forms.ModelForm):
         widgets = {
             'name': forms.TextInput(attrs={'class':'form-control', 'placeholder':'Name'}),
             'price': forms.TextInput(attrs={'class':'form-control', 'placeholder':'$100'}),
+            'description': forms.TextInput(attrs={'class':'form-control', 'placeholder':'Description'}),
             'image': forms.TextInput(attrs={'class':'form-control', 'placeholder':'URL to image'})
         }
 
