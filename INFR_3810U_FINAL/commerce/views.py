@@ -44,11 +44,13 @@ def listing(request, pk):
 def order(request, pk=None):
     if not pk:
         return render(request, "commerce/orders.html", {"orders": Order.objects.filter(user=request.user)})
-    if Order.objects.filter(user=request.user, listing=pk).exists():
+    if Listing.objects.get(pk=pk).user == request.user:
+        messages.error(request, f"You cannot purchase your own listing!", extra_tags="Error")
+    elif Order.objects.filter(user=request.user, listing=pk).exists():
         pass
     else:
         if not request.user.address or not request.user.postal_code or not request.user.country:
-            messages.error(request, f"Incomplete Address information. head to the account settings for {request.user} and complete all addressing information.", extra_tags="Error")
+            messages.error(request, f"Incomplete address information. Head to the account settings for {request.user} and complete all addressing information.", extra_tags="Error")
         else:
             listing = Listing.objects.get(pk=pk)
             order = Order (

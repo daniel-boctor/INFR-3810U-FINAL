@@ -44,4 +44,5 @@ class ReviewForm(forms.ModelForm):
         exclude = ('user','listing')
         widgets = {
             'review': forms.TextInput(attrs={'class':'form-control', 'placeholder':'Review'}),
+            'recommend': forms.CheckboxInput(attrs={'class':'form-check-input'}),
         }
